@@ -1,0 +1,130 @@
+                           __________________
+
+                            LAB 7 QUESTIONS
+                           __________________
+
+Lab Instructions
+================
+
+  Follow the instructions below to experiment with topics related to
+  this lab.
+  - For sections marked QUIZ, fill in an (X) for the appropriate
+    response in this file. Use the command `make test-quiz' to see if
+    all of your answers are correct.
+  - For sections marked CODE, complete the code indicated. Use the
+    command `make test-code' to check if your code is complete.
+  - DO NOT CHANGE any parts of this file except the QUIZ sections as it
+    may interfere with the tests otherwise.
+  - If your `QUESTIONS.txt' file seems corrupted, restore it by copying
+    over the `QUESTIONS.txt.bk' backup file.
+  - When you complete the exercises, check your answers with `make test'
+    and if all is well, create a zip file with `make zip' and upload it
+    to Gradescope. Ensure that the Autograder there reflects your local
+    results.
+  - IF YOU WORK IN A GROUP only one member needs to submit and then add
+    the names of their group.
+
+CODE None
+=========
+
+  Before answering the quiz questions below, your first task is to modify the
+  file `superscalar_main.c` to measure the execution time of the different
+  algorithms you will be running and studying.
+
+  Fill in all of the locations marked by `???` in the C source code. These are:
+    * The parameters for the call to `clock_gettime` on line 71
+    * The parameters for the call to `clock_gettime` on line 74
+    * The value assigned to `dobule elapsed_sec` on line 75. Hint: Look for a
+      helpful function defined above `main` in the file.
+
+
+QUIZ Timing Code
+================
+
+  Once your `superscalar_main` program is able to time its own execution,
+  you will need to run the program a few different times to answer the questions
+  below. This will involve using SSH to connect to multiple machines.
+
+Using `clock_gettime`
+~~~~~~~~~~~~
+
+  When calling `clock_gettime` to benchmark execution speed, which of the
+  following should we use as the first argument?
+
+  - ( ) `CLOCK_REALTIME` because we care about the time taken in the real
+    world for the code to run (wall time).
+  - ( ) `CLOCK_MONOTONIC` because time always moves forward.
+  - (X) `CLOCK_PROCESS_CPUTIME_ID` because we want to measure how much time the
+    CPU spends doing useful work for the our program.
+
+
+Processor types
+~~~~~~~~~~~~~~~
+
+  Use the `lscpu' utility on the two machines
+  - atlas.cselabs.umn.edu
+  - csel-kh1250-xx.cselabs.umn.edu (Replace xx with a number of your choice)
+  to determine the types of processors and their relative processing
+  speed according to the "BogoMIPS" measure. What do you observe?
+
+  - ( ) `atlas' and `csel-kh1250-NN' both have Intel processors and the
+    BogoMIPS measure indicates `csel-kh1250-NN' is faster
+  - ( ) `atlas' and `csel-kh1250-NN' both have AMD processors and the
+    BogoMIPS measure indicates `atlas' is faster
+  - ( ) `atlas' has Intel processors and `csel-kh1250-NN' has AMD
+    processors and the BogoMIPS measure indicates `atlas' is faster
+  - (X) `atlas' has AMD processors and `csel-kh1250-NN' has Intel
+    processors and the BogoMIPS measure indicates `csel-kh1250-NN' is
+    faster
+
+
+Timings using `superscalar_main'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Compile your modified `superscalar_main` program using the provided
+  `Makefile' and run it on both `atlas' and `csel-kh1250-xx' using the following
+  command:
+  ,----
+  | ./superscalar_main 1 30 add1_diff
+  `----
+
+  According to what you observe for this, which of the following best
+  reflects the outcome of the runs between the two machines?
+  - (X) `atlas' takes about 0.9s to run while `csel-kh1250-xx' takes
+    about 0.28s to run, indicating `csel-kh1250-NN' is faster
+  - ( ) `atlas' takes about 0.50s to run while `csel-kh1250-xx' takes
+    about 0.85s to run indicating `atlas' is faster
+  - ( ) `atlas' takes about 1.23s to run while `csel-kh1250-xx' takes
+    about 0.61s to run indicating `csel-kh1250-NN' is faster
+  - ( ) `atlas' takes about 0.10s to run while `csel-kh1250-NN' takes
+    about 0.15s to run indicating `atlas' is faster
+
+
+Mysteries
+~~~~~~~~~
+
+  Among the benchmarks implemented in `superscalar_main` are the
+  following two
+  ,----
+  |   add2_diff : add 2 times in same loop; different destination variables
+  |   add2_same : add 2 times in same loop; same destination variable
+  `----
+  Examining the code for these two should reveal only minor differences
+  but even this minor difference has some strange performance
+  implications. Time runs of the benchmark such as:
+  ,----
+  | ./superscalar_main 1 30 add2_diff
+  | ./superscalar_main 1 30 add2_same
+  `----
+  on BOTH `atlas' and `csel-kh1250-xx' and report on their relative execution
+  times below.
+
+  On atlas
+  - ( ) atlas: time for `add2_diff < add2_same'
+  - (X) atlas: time for `add2_diff > add2_same'
+  - ( ) atlas: time for `add2_diff = add2_same'
+
+  On csel-kh1250-NN
+  - (X) csel-kh1250-NN: time for `add2_diff < add2_same'
+  - ( ) csel-kh1250-NN: time for `add2_diff > add2_same'
+  - ( ) csel-kh1250-NN: time for `add2_diff = add2_same'

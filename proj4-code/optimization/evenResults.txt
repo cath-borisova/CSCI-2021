@@ -1,0 +1,20 @@
+Contents of results array: {13860076487, 13860432496, 13860434039, 13859691654, 13859694892}
+CPU time for control implementation: 4.796 sec.
+Wall time for control implementation: 4.796 sec.
+
+Contents of results array: {13860076487, 13860432496, 13860434039, 13859691654, 13859694892}
+CPU time for student implementation: 1.160 sec.
+Wall time for student implementation: 1.160 sec.
+
+Ratio of control speed to student speed (get_every_fifth): 4.136143
+
+Sum of all elements in the array: 69300329568
+CPU time for control implementation: 2.569 sec.
+Wall time for control implementation: 2.569 sec.
+
+Sum of all elements in the array: 69300329568
+CPU time for student implementation: 0.977 sec.
+Wall time for student implementation: 0.977 sec.
+
+Ratio of control speed to student speed (get_every): 2.628388
+

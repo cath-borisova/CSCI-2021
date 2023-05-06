@@ -1,0 +1,118 @@
+                           _____________________
+
+                            PROJECT 4 QUESTIONS
+                           _____________________
+
+
+
+
+
+Project Instructions
+================
+
+  Follow the instructions below to experiment with topics related to
+  this project.
+  - For this project, begin with Part 1: "Optimization". In the folder by that
+    name you will see several files. The only one that you need to alter is
+    "matrix_funcs_student.c". Once you have completed the code in
+    "matrix_funcs_student.c" use the command "make test" to run the code and
+    testing script. In this project, your code will be tested for both
+    correctness and efficiency.
+  - Once you are satisfied with your work in "Optimization", move on to the
+    "Timing" folder. In this folder, there are two files that you will need to
+    alter: "list_funcs_student.c" and "list_main.c". Here you will both provide
+    a more efficient implementation of a function as well as write the code to
+    time the run-time of a few functions and display the results. This code
+    will be graded manually by TA's, so no "make test" command is provided for
+    this portion of the project.
+  - Once you have completed the previous portions of the project, then you
+    should proceed to answer the questions in this file.
+
+    NOTE: YOU SHOULD NOT ATTEMPT THE QUESTIONS BELOW WITHOUT FIRST PERFORMING
+    THE FIRST TWO STEPS DESCRIBED ABOVE.
+
+    The following questions assume you have completed the code and will ask you
+    about what you observed. The questions are essay style and will be manually
+    graded. You should write at most one paragraph (roughly 3 to 5 sentences)
+    for each question that asks for an explanation. For the question that asks
+    you to calculate cache misses, you must show all of your work.
+
+
+1. CACHES AND CACHE MISSES
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+According to the "lscpu" command run on a Keller Hall 1-262 machine, the L1
+cache of a Keller 1-262 machine is 128 kilobytes (where 1 kilobyte = 1024
+bytes). Assume the cache has a 64-byte block size.
+
+Suppose we are running a C program on one of the Keller 1-262 machines that
+features an int array with 253,952 elements. Assume the array is aligned to the
+L1 cache's block size (i.e., the array's starting address is a multiple of 64).
+Our program performs a linear search over the array for a value that is not
+stored in the array.
+
+How many cache misses occur during this search? You should ignore the loop
+variable (e.g., "int i"). Make sure to show your work.
+
+It's going to follow a miss-hit*63 pattern because the first value will not be stored in the cache, but since the block size is 64 bytes, 
+it will save itself and the addresses of the next 63 elements in the array since they are contiguous in memory.
+Then the 65th element will be a miss, since it was not stored, but it will save itself and the next 63 elements and so on.
+Therefore, there is a miss rate of 1/64. Since the element does not exist and the linear search iterates through every single array, the
+total misses is 1/64 * 253,952 = 3,968 misses.  
+
+
+
+
+
+
+
+
+
+2. WALL TIME AND CPU TIME
+~~~~~~~~~~~~~~~~~~~~~~~~~
+In the "main" function of the optimization portion of this project, we measure
+both the CPU and wall time required for the functions to run.  What is the
+difference between these two types of time measurement?  When might we be
+interested in the wall time? CPU time? Which makes more sense to use for what we
+are measuring in the optimization portion of this project?
+
+The difference between the two is that CPU time measures how long it takes for the code itself to execute, 
+whereas wall time measures the time it takes for the code itself to execute in addition to any processor
+delays/stalling and anything else that may be going on. Therefore, CPU time can be shorter. You would want
+to measure wall time if you were curious to see if your code ran well and shared resources well with other
+programs running at the same time. It would make more sense to use CPU time in this project because
+this project is only interested in making us optimized code that exploits caches' ability to make
+addresses faster for the CPU to access. Therefore, we are not interested in external factors that could
+make our code slower.
+
+
+
+
+
+
+
+
+
+2. LINEAR SEARCH 3-TIMES
+~~~~~~~~~~~~~~~~~~~~~~~~
+In the timing portion of this project, we asked you to improve upon a provided
+version of the function "find_index". Why was the provided version inefficient?
+How did your improved version compare to performing the same search using an
+array? Why do you think this is?
+
+The function was inefficient because it called list_get(list, i). It had to call the starting memory of the list each time
+the loop ran, which was often going to be a miss, especailly with larger arrays. The function initializes more local variables and pointers, which could be 
+potentially overriding the values stored in the cache relating to the linked list. However, that doesn't really make a difference
+because even if it did override them, the next stored value would be of the address of the current node, and likely the next x contiguous
+nodes, x being block size - 1. However, when the loop calls list_get again, the start address and next x contiguous nodes are stored again. So if the linked 
+list's length was greater than the block size, and you were still iterating through the linked list after the node x, x being the block size, you would
+repeatedly be getting a cache miss. My version was faster because I was not calling the start address every iteration. Instead, I was always looking at the next
+node address, so I would be getting a miss only the first iteration, and any iteration a multiple of the block size because that is when I would have to 
+overwrite the cache.
+
+
+
+
+
+
+
+

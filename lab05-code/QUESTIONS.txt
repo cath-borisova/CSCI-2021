@@ -1,0 +1,141 @@
+                           __________________
+
+                            LAB 05 QUESTIONS
+                           __________________
+
+
+
+
+
+Lab Instructions
+================
+
+  Follow the instructions below to experiment with topics related to
+  this lab.
+  - For sections marked QUIZ, fill in an (X) for the appropriate
+    response in this file. Use the command `make test-quiz' to see if
+    all of your answers are correct.
+  - For sections marked CODE, complete the code indicated. Use the
+    command `make test-code' to check if your code is complete.
+  - DO NOT CHANGE any parts of this file except the QUIZ sections as it
+    may interfere with the tests otherwise.
+  - If your `QUESTIONS.txt' file seems corrupted, restore it by copying
+    over the `QUESTIONS.txt.bk' backup file.
+  - When you complete the exercises, check your answers with `make test'
+    and if all is well, create a zip file with `make zip' and upload it
+    to Gradescope. Ensure that the Autograder there reflects your local
+    results.
+  - IF YOU WORK IN A GROUP only one member needs to submit and then add
+    the names of their group.
+
+
+QUIZ gdb and Debugging Advice
+=============================
+
+Start by reading the `GUIDE.pdf` file included with this codepack. It first
+offers some advice on debugging and then features an exercise where you will
+have to inspect a simple program with a debugger and modify an input file to
+pass our provided tests.
+
+Pure Functions
+~~~~~~~~~~~~~~
+
+  What does it mean for a function to be "pure"?
+  - ( ) The function doesn't take any arguments or return a value.
+  - ( ) The function does not call any other functions.
+  - (X) The function does not have any side effects. Its results for a given
+        input value are always the same.
+  - ( ) Neither of the function's parents are muggle-born.
+
+
+Debugging Techniques
+~~~~~~~~~~~~~~~~~~~~
+
+  Which of the following is not a useful technique when debugging?
+  - ( ) When writing code, favor pure functions and keep changes to global state
+        contained to specific places to make any future debugging easier.
+  - ( ) When working through code with a debugger, only step into a function's
+        execution if it doesn't produce the expected result.
+  - ( ) Try to find the simplest possible situation and input values that
+        trigger the bug you are trying to eliminate.
+  - ( ) Search efficiently. For example, use a binary search approach to finding
+        which iteration of a loop induces a bug.
+  - (X) ALL of the above are good debugging techniques.
+
+
+Using TUI Mode in GDB
+~~~~~~~~~~~~~~~
+
+  How do we enter TUI mode with `gdb`?
+  - ( ) Start `gdb` using the `-tui` argument on the terminal.
+  - ( ) Run the command `tui enable` in `gdb`'s command prompt once it is
+        running.
+  - (X) Either of the two approaches above will work.
+  - ( ) Trick question: We have to compile the original program with special
+        command-line options to enable TUI mode when it is debugged.
+
+TUI Mode
+~~~~~~~~
+
+  Why is `gdb`'s TUI mode useful?
+  - ( ) It gives us access to more powerful commands like `stepi` that will be
+        useful for debugging assembly code.
+  - (X) It allows the user to see `gdb`'s usual command prompt as well as a
+        second "window" showing the source code being debugged.
+  - ( ) TUI mode lets us use `gdb` through a graphical interface rather than
+        the command line.
+  - ( ) TUI mode lets `gdb` integrate with external programs like VS Code.
+
+
+CODE indices.txt for count_hcp
+==========================
+
+  In the second part of this lab, you will complete the exercise described in
+  the `GUIDE.pdf` document included with this codepack.
+
+  While this exercise does not match a phase of Project 2's `puzzlebox` program
+  as closely as last week's lab, it does still closely resemble at least two
+  phases of the `puzzlebox` and should be helpful for Project 2.
+
+  The `count_hcp` program is easily compiled by using our provided `Makefile`:
+  ,----
+  | > make
+  `----
+
+
+  You can then run the program for yourself and should see the following
+  output:
+  ,----
+  | > ./count_hcp indices.txt
+  | Oops! East and West have some high cards. Try again!
+  `----
+
+
+  Follow the instructions in the `GUIDE.pdf` document and use `gdb` to determine
+  how you will need to modify the `indices.txt` file to achieve the desired
+  result (i.e., the right cards are dealt to the right players).
+
+  A correct execution yields the output:
+  ,----
+  | > ./count_hcp indices.txt
+  | Wow! You've got all the high cards!
+  `----
+
+  We check for this result in this lab's CODE tests.
+
+  You can automatically test that the code behaves correctly via the command
+  ,----
+  | make test-code
+  `----
+
+  and verify that both code/quiz are correct via
+  ,----
+  | make test
+  `----
+
+  before using
+  ,----
+  | make zip
+  `----
+
+  to create a zip to submit.

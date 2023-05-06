@@ -1,0 +1,4 @@
+Ratio of control speed to student speed (get_every_fifth): 4.136143
+Ratio of control speed to student speed (get_every): 2.628388
+Ratio of control speed to student speed (get_every_fifth): 4.529403
+Ratio of control speed to student speed (get_every): 2.651587
